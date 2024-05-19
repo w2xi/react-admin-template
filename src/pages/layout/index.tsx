@@ -7,24 +7,10 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import MenuComponent from './menu';
+import './index.scss';
 import type { MenuList } from '../../interface/layout/menu.interface.ts';
 
 const { Header, Sider, Content } = Layout;
-
-const headerStyle: React.CSSProperties = {
-  height: 56,
-  backgroundColor: '#fff',
-};
-
-const layoutStyle = {
-  overflow: 'hidden',
-  height: '100vh'
-};
-
-const contentStyle = {
-  padding: '10px',
-  background: '#efefef',
-};
 
 const menus: MenuList = [
   {
@@ -54,13 +40,13 @@ const LayoutPage: React.FC = () => {
   const [menuList] = useState<MenuList>(menus)
 
   return (
-    <Layout style={layoutStyle}>
-      <Sider width="25%">
+    <Layout className='layout-container'>
+      <Sider className='sidebar'>
         <MenuComponent menuList={menuList}></MenuComponent>
       </Sider>
       <Layout>
-        <Header style={headerStyle}>Header</Header>
-        <Content style={contentStyle}>
+        <Header className='header'>Header</Header>
+        <Content className='content'>
           <Outlet />
         </Content>
       </Layout>

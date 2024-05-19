@@ -1,0 +1,14 @@
+.layout-container {
+  height: 100vh;
+  .sidebar {
+    background: #fff !important;
+  }
+  .header {
+    height: 56px;
+    background: #fff;
+  }
+  .content {
+    padding: 10px;
+    background: #f5f5f5;
+  }
+}

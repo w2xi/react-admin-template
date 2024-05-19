@@ -18,7 +18,6 @@ const MenuComponent: FC<MenuProps> = (props) => {
 
   return (
     <Menu
-      theme="dark" 
       mode="inline" 
       selectedKeys={[location.pathname]}
       onSelect={k => onMenuClick(k.key)}
