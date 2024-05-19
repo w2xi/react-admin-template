@@ -1,7 +1,10 @@
 import { createBrowserRouter, useRoutes } from 'react-router-dom';
-import LayoutPage from '../pages/layout';
 import Login from '../pages/login';
+import LayoutPage from '../pages/layout';
+import { lazy} from 'react';
 import type { FC } from 'react';
+
+const NotFound = lazy(() => import('../pages/404'));
 
 const routeList = [
   {
@@ -23,6 +26,10 @@ const routeList = [
       {
         path: '/3',
         element: <div>3</div>
+      },
+      {
+        path: '*',
+        element: <NotFound />
       }
     ]
   }
