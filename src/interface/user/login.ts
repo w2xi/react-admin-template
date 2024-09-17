@@ -3,7 +3,11 @@ export interface LoginParams {
   password: string;
 }
 
-export interface LoginResponse {
+export interface LoginResult {
   token: string;
   username: string;
+}
+
+export interface LogoutParams {
+  token: string;
 }

@@ -1,11 +1,30 @@
 .layout-container {
   height: 100vh;
   .sidebar {
-    background: #fff !important;
+    .logo-wrapper {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+      .title {
+        font-size: 25px;
+        font-weight: 500;
+        margin-left: 10px;
+        color: #eee;
+      }
+    }
   }
   .header {
-    height: 56px;
+    padding: 0 20px;
+    box-shadow: 0 4px 2px rgba(255, 255, 255, 0.1);
     background: #fff;
+    .collapse-btn {
+      cursor: pointer;
+    }
   }
   .content {
     padding: 10px;

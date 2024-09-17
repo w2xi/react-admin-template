@@ -1,12 +1,14 @@
 interface MenuItem {
-  key: string;
   code: string;
-  label: string;
+  label: {
+    zh_CN: string;
+    en_US: string;
+  };
   /** 图标名称
    *
    * 子子菜单不需要图标
    */
-  icon?: any;
+  icon?: string;
   /** 菜单路由 */
   path: string;
   /** 子菜单 */

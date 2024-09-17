@@ -16,16 +16,24 @@ const routeList = [
     element: <LayoutPage />,
     children: [
       {
-        path: '/1',
-        element: <div>1</div>
+        path: '/dashboard',
+        element: <div>dashboard</div>
       },
       {
-        path: '/2',
-        element: <div>2</div>
+        path: '/icon',
+        element: <div>icon</div>
       },
       {
-        path: '/3',
-        element: <div>3</div>
+        path: '/charts',
+        element: <div>charts</div>
+      },
+      {
+        path: '/charts/bar',
+        element: <div>bar</div>
+      },
+      {
+        path: '/charts/line',
+        element: <div>line</div>
       },
       {
         path: '*',

@@ -1,8 +1,10 @@
 
 import { Menu } from 'antd';
-import type { FC } from 'react';
-import type { MenuList } from '../../interface/layout/menu.interface.ts';
 import { useNavigate } from 'react-router-dom';
+import useAppStore from '@/stores/app.ts';
+import CustomIcon from './custom-icon.tsx';
+import type { FC } from 'react';
+import type { MenuList } from '../../interface/layout/menu.ts';
 
 interface MenuProps {
   menuList: MenuList;
@@ -10,6 +12,7 @@ interface MenuProps {
 
 const MenuComponent: FC<MenuProps> = (props) => {
   const { menuList } = props;
+  const { locale, collapsed } = useAppStore();
   const navigate = useNavigate();
 
   const onMenuClick = (path: string) => {
@@ -19,19 +22,23 @@ const MenuComponent: FC<MenuProps> = (props) => {
   return (
     <Menu
       mode="inline" 
+      theme="dark"
       selectedKeys={[location.pathname]}
       onSelect={k => onMenuClick(k.key)}
       items={menuList.map((item) => {
         return item.children ? {
           key: item.code,
-          label: item.label,
+          label: item.label[locale],
+          icon: <CustomIcon type={item.icon} />,
           children: item.children?.map((child) => ({
             key: child.path,
-            label: child.label,
+            label: child.label[locale],
+            icon: <CustomIcon type={child.icon} />,
           }))
         } : {
           key: item.path,
-          label: item.label,
+          label: item.label[locale],
+          icon: <CustomIcon type={item.icon} />,
         }
       })}
     >

@@ -1,1 +1,3 @@
-import './login.mock.ts'
+import './login.ts'
+import './logout.ts'
+import './menu.ts'

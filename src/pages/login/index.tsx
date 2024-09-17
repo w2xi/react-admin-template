@@ -1,7 +1,7 @@
 import { Form, Input, Button } from "antd" 
-import { login } from "../../api/user"
+import { login } from "../../api/user.ts"
 import './index.scss'
-import type { LoginParams } from '../../interface/user/login.interface.ts'
+import type { LoginParams } from '../../interface/user/login.ts'
 import { useNavigate } from "react-router-dom";
 
 const initialValues: LoginParams = {

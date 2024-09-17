@@ -1,51 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from "antd";
 import { Outlet } from 'react-router-dom';
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import MenuComponent from './menu';
 import './index.scss';
-import type { MenuList } from '../../interface/layout/menu.interface.ts';
+import MenuComponent from './menu';
+import HeaderComponent from './header';
+import { getMenuList } from '../../api/layout.ts';
+import useUserStore from '@/stores/user.ts';
+import useAppStore from '@/stores/app.ts';
+import ReactLogo from '@/assets/react.svg';
 
-const { Header, Sider, Content } = Layout;
-
-const menus: MenuList = [
-  {
-    key: '1',
-    code: '1',
-    icon: <UserOutlined />,
-    label: 'nav 1',
-    path: '/1',
-  },
-  {
-    key: '2',
-    code: '2',
-    icon: <VideoCameraOutlined />,
-    label: 'nav 2',
-    path: '/2',
-  },
-  {
-    key: '3',
-    code: '3',
-    icon: <UploadOutlined />,
-    label: 'nav 3',
-    path: '/3',
-  },
-]
+const { Sider, Content } = Layout;
 
 const LayoutPage: React.FC = () => {
-  const [menuList] = useState<MenuList>(menus)
+  const { menuList, setMenuList } = useUserStore()
+  const { collapsed } = useAppStore()
+
+  const fetchMenuList = async () => {
+    const { code, result } = await getMenuList()
+
+    console.log(code, result)
+
+    if (code === 200) {
+      setMenuList(result)
+    }
+  }
+
+  useEffect(() => {
+    fetchMenuList()
+  }, [])
 
   return (
     <Layout className='layout-container'>
-      <Sider className='sidebar'>
+      <Sider className='sidebar' collapsed={collapsed}>
+        <div className='logo-wrapper'>
+          <img src={ReactLogo} alt="logo" />
+          { collapsed ? null : <span className='title'>Admin</span> }
+        </div>
         <MenuComponent menuList={menuList}></MenuComponent>
       </Sider>
       <Layout>
-        <Header className='header'>Header</Header>
+        <HeaderComponent />
         <Content className='content'>
           <Outlet />
         </Content>
