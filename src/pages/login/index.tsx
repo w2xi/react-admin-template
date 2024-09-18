@@ -1,8 +1,9 @@
 import { Form, Input, Button } from "antd" 
-import { login } from "../../api/user.ts"
+import { login } from "@/api/user.ts"
 import './index.scss'
-import type { LoginParams } from '../../interface/user/login.ts'
+import type { LoginParams } from '@/interface/user/login.ts'
 import { useNavigate } from "react-router-dom";
+import useUserStore from "@/stores/user";
 
 const initialValues: LoginParams = {
   username: 'guest',
@@ -12,13 +13,15 @@ const initialValues: LoginParams = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUserInfo } = useUserStore();
 
   const onFinished = (form: LoginParams) => {
-    console.log(form);
-
     login(form).then(res => {
       console.log(res);
-      navigate('/')
+      if (res.code === 200) {
+        setUserInfo(res.result)
+        navigate('/')
+      }
     })
   }
 
