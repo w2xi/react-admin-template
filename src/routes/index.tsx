@@ -1,7 +1,9 @@
+import { lazy} from 'react';
 import { createBrowserRouter, useRoutes } from 'react-router-dom';
 import Login from '../pages/login';
 import LayoutPage from '../pages/layout';
-import { lazy} from 'react';
+import LinePage from '../pages/charts/line';
+import BarPage from '../pages/charts/bar';
 import type { FC } from 'react';
 
 const NotFound = lazy(() => import('../pages/404'));
@@ -24,16 +26,12 @@ const routeList = [
         element: <div>icon</div>
       },
       {
-        path: '/charts',
-        element: <div>charts</div>
-      },
-      {
         path: '/charts/bar',
-        element: <div>bar</div>
+        element: <BarPage />
       },
       {
         path: '/charts/line',
-        element: <div>line</div>
+        element: <LinePage />
       },
       {
         path: '*',
