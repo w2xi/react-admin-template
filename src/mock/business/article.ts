@@ -1,0 +1,37 @@
+import Mock from 'mockjs'
+import response from '../response'
+
+const data: any[] = []
+const count = 100
+
+for (let i = 0; i < count; i++) { 
+  data.push(Mock.mock({
+    id: '@increment',
+    author: '@first',
+    title: '@title',
+    content: '@title',
+    importance: '@integer(1, 3)',
+    create_time: '@datetime',
+    views: '@integer(300, 5000)',
+    'status|1': ['published', 'draft'],
+  }))
+}
+
+Mock.mock('/api/business/article/list', 'get', (config: any) => {
+  const { page = 1, limit = 20 } = JSON.parse(config.body)
+  const start = (page - 1) * limit
+  const end = start + limit
+  return response({
+    records: data.slice(start, end),
+    total: count,
+  })
+})
+
+Mock.mock('/api/business/article/delete', 'delete', (config: any) => {
+  const { id } = JSON.parse(config.body)
+  const index = data.findIndex(item => item.id === id)
+  if (index !== -1) {
+    data.splice(index, 1)
+  }
+  return response({})
+})

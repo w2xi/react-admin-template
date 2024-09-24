@@ -1,9 +1,11 @@
 import { lazy} from 'react';
-import { createBrowserRouter, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Login from '../pages/login';
 import LayoutPage from '../pages/layout';
 import LinePage from '../pages/charts/line';
 import BarPage from '../pages/charts/bar';
+import ArticlePage from '../pages/business/article';
 import type { FC } from 'react';
 
 const NotFound = lazy(() => import('../pages/404'));
@@ -17,6 +19,10 @@ const routeList = [
     path: '/',
     element: <LayoutPage />,
     children: [
+      {
+        path: '',
+        element: <Navigate to="dashboard" />,
+      },
       {
         path: '/dashboard',
         element: <div>dashboard</div>
@@ -32,6 +38,10 @@ const routeList = [
       {
         path: '/charts/line',
         element: <LinePage />
+      },
+      {
+        path: '/business/article',
+        element: <ArticlePage />
       },
       {
         path: '*',

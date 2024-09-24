@@ -49,7 +49,27 @@ const menuList: MenuList = [
         path: '/charts/line',
       },
     ]
-  }
+  },
+  {
+    code: 'Business',
+    icon: 'business',
+    label: {
+      zh_CN: '业务',
+      en_US: 'Business',
+    },
+    path: '/business',
+    children: [
+      {
+        code: 'article',
+        icon: 'article',
+        label: {
+          zh_CN: '表格',
+          en_US: 'Table',
+        },
+        path: '/business/article',
+      },
+    ]
+  },
 ]
 
 Mock.mock('/api/layout/menu', 'get', () => {
