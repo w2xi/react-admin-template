@@ -1,5 +1,5 @@
-import { Layout, Avatar, Dropdown, Space, Switch  } from "antd"
-import { MenuUnfoldOutlined, MenuFoldOutlined, DownOutlined, CaretDownOutlined } from '@ant-design/icons'
+import { Layout, Avatar, Dropdown, Space  } from "antd"
+import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined } from '@ant-design/icons'
 import useAppStore from '@/stores/app.ts';
 import useUserStore from "@/stores/user";
 import { useNavigate } from "react-router-dom";

@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Table, Button, Rate, message, Popconfirm } from 'antd';
+import { css } from '@emotion/react';
 import dayjs from 'dayjs';
 import { getArticleList, deleteArticle } from '@/api/business.ts';
-import styles from './article.module.scss'
 import type { Article, ArticleList } from '@/interface/business/article';
 import type { TableProps } from 'antd';
 
@@ -108,19 +108,42 @@ function ArticlesComponent() {
   ];
 
   return (
-    <Table
-      className={styles['article-table']}
-      dataSource={data} 
-      columns={columns} 
-      pagination={{ 
-        current: pageData.pageNum,
-        pageSize: pageData.pageSize,
-        total: pageData.total,
-        onChange: onPageChange,
-      }}
-      rowKey={(record) => record.id}
-    />
+    <div css={styles}>
+      <Table
+        dataSource={data} 
+        columns={columns} 
+        pagination={{ 
+          current: pageData.pageNum,
+          pageSize: pageData.pageSize,
+          total: pageData.total,
+          onChange: onPageChange,
+        }}
+        rowKey={(record) => record.id}
+        scroll={{ x: 'max-content', y: 'calc(100vh - 200px)' }}
+      />
+    </div>
   )
 }
 
 export default ArticlesComponent;
+
+const styles = css`
+  height: 100%;
+  overflow: hidden;
+  .ant-table-wrapper,
+  .ant-spin-nested-loading,
+  .ant-spin-container,
+  .ant-table-container {
+    height: 100%;
+  }
+  .ant-spin-container {
+    display: flex;
+    flex-direction: column;
+    .ant-table {
+      flex: 1;
+    }
+    .ant-pagination {
+      padding: 0 10px;
+    }
+  }
+`;
