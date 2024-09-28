@@ -13,15 +13,6 @@ const menuList: MenuList = [
     path: '/dashboard',
   },
   {
-    code: 'icon',
-    icon: 'icon',
-    label: {
-      zh_CN: '图标',
-      en_US: 'Icon',
-    },
-    path: '/icon',
-  },
-  {
     code: 'charts',
     icon: 'charts',
     label: {
