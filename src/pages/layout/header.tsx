@@ -1,5 +1,5 @@
-import { Layout, Avatar, Dropdown, Space  } from "antd"
-import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined } from '@ant-design/icons'
+import { Layout, Avatar, Dropdown, Space, Tooltip, theme as antTheme  } from "antd"
+import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
 import useAppStore from '@/stores/app.ts';
 import useUserStore from "@/stores/user";
 import { useNavigate } from "react-router-dom";
@@ -7,15 +7,13 @@ import UserAvatar from '@/assets/mikoto-misaka.jpg'
 import LanguageSvg from '@/assets/language.svg?react'
 import type { MenuProps } from 'antd'
 
+const { useToken } = antTheme;
 const { Header } = Layout;
 
-const styles = {
-  fontSize: '18px',
-}
-
 function HeaderComponent() {
+  const { token } = useToken();
   const navigate = useNavigate();
-  const { collapsed, locale, setCollapsed, setLocale } = useAppStore();
+  const { collapsed, locale, theme, setLocale, setTheme, setCollapsed } = useAppStore();
   const { clear } = useUserStore();
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
@@ -37,14 +35,19 @@ function HeaderComponent() {
   }
 
   return (
-    <Header className="header">
-      <span className="collapse-btn" onClick={() => setCollapsed(!collapsed)}>
+    <Header className="header" style={{ backgroundColor: token.colorBgContainer }}>
+      <span className="action-btn" onClick={() => setCollapsed(!collapsed)}>
         { 
           collapsed 
-            ? <MenuUnfoldOutlined style={styles} /> 
-            : <MenuFoldOutlined style={styles} />}
+            ? <MenuUnfoldOutlined /> 
+            : <MenuFoldOutlined />}
       </span>
       <div className="actions">
+        <Tooltip title={theme === 'dark' ? 'light mode' : 'dark mode'}>
+          <span className="action-btn" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          { theme === 'dark' ? <SunOutlined /> : <MoonOutlined /> }
+          </span>
+        </Tooltip>
         <Dropdown
           menu={{
             onClick,
@@ -63,11 +66,12 @@ function HeaderComponent() {
           }}
           trigger={['click']}
         >
-          <span style={{ cursor: 'pointer' }}>
-            <LanguageSvg height={20} width={20} />
+          <span className="action-btn">
+            <LanguageSvg height={18} width={18} />
           </span>
         </Dropdown>
-        <Dropdown menu={{
+        <Dropdown 
+          menu={{
             onClick,
             items: [
               {

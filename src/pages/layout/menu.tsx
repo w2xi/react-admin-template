@@ -12,7 +12,7 @@ interface MenuProps {
 
 const MenuComponent: FC<MenuProps> = (props) => {
   const { menuList } = props;
-  const { locale, collapsed } = useAppStore();
+  const { locale } = useAppStore();
   const navigate = useNavigate();
 
   const onMenuClick = (path: string) => {
@@ -22,7 +22,6 @@ const MenuComponent: FC<MenuProps> = (props) => {
   return (
     <Menu
       mode="inline" 
-      theme="dark"
       selectedKeys={[location.pathname]}
       onSelect={k => onMenuClick(k.key)}
       items={menuList.map((item) => {
