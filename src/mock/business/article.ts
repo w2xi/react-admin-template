@@ -1,7 +1,8 @@
 import Mock from 'mockjs'
 import response from '../response'
+import type { ArticleList } from '@/interface/business/article'
 
-const data: any[] = []
+const data: ArticleList = []
 const count = 100
 
 for (let i = 0; i < count; i++) { 
@@ -35,3 +36,18 @@ Mock.mock('/api/business/article/delete', 'delete', (config: any) => {
   }
   return response({})
 })
+
+Mock.mock('/api/business/article/edit', 'post', (config: any) => {
+  const { id, author, title, importance, status } = JSON.parse(config.body)
+  const index = data.findIndex(item => item.id === id)
+  if (index !== -1) {
+    data[index] = {
+      ...data[index],
+      author,
+      title,
+      importance,
+      status,
+    }
+  }
+  return response({})
+})  

@@ -20,3 +20,11 @@ export interface Article {
   views: number;
   status: 'published' | 'draft';
 }
+
+export interface ArticleEditParams {
+  id: number;
+  author: string;
+  title: string;
+  importance: number;
+  status: 'published' | 'draft';
+}

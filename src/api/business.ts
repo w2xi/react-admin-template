@@ -1,5 +1,5 @@
 import { request } from "./request";
-import type { ArticleListParams, ArticleListResult } from "../interface/business/article";
+import type { ArticleListParams, ArticleListResult, ArticleEditParams } from "../interface/business/article";
 
 export const getArticleList = (params: ArticleListParams) => {
   console.log('params', params);
@@ -18,5 +18,13 @@ export const deleteArticle = (id: number) => {
     data: {
       id,
     },
+  })
+}
+
+export const editArticle = (params: ArticleEditParams) => {
+  return request({
+    method: 'post',
+    url: '/api/business/article/edit',
+    data: params,
   })
 }

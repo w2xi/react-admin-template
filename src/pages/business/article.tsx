@@ -1,10 +1,21 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Table, Button, Rate, message, Popconfirm } from 'antd';
+import { Table, Button, Rate, message, Popconfirm, Modal, Form, Input, Select } from 'antd';
 import { css } from '@emotion/react';
 import dayjs from 'dayjs';
-import { getArticleList, deleteArticle } from '@/api/business.ts';
+import { getArticleList, deleteArticle, editArticle } from '@/api/business.ts';
 import type { Article, ArticleList } from '@/interface/business/article';
-import type { TableProps } from 'antd';
+import type { TableProps, FormProps } from 'antd';
+
+interface FieldType {
+  author: string;
+  title: string;
+  importance: number;
+  status: 'published' | 'draft';
+}
+
+const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+  console.log('Failed:', errorInfo);
+};
 
 
 function ArticlesComponent() {
@@ -14,23 +25,10 @@ function ArticlesComponent() {
     total: 0,
   });
   const [data, setData] = useState<ArticleList>([]);
-
-  const onPageChange = (pageNum: number, pageSize?: number) => {
-    setPageData({
-      ...pageData,
-      pageNum,
-      pageSize: pageSize || pageData.pageSize,
-    })
-  }
-
-  const onDelete = (id: number) => {
-    deleteArticle(id).then(res => {
-      if (res.code === 200) {
-        message.success('Delete success')
-        getData()
-      }
-    })
-  }
+  const [modalState, setModalState] = useState({
+    visible: false,
+    item: {} as Article,
+  });
 
   const getData = useCallback(() => {
     getArticleList({
@@ -49,7 +47,49 @@ function ArticlesComponent() {
         })
       }
     })
-  }, [getArticleList, pageData.pageNum, pageData.pageSize])
+  }, [pageData.pageNum, pageData.pageSize])
+
+  const onPageChange = (pageNum: number, pageSize?: number) => {
+    setPageData({
+      ...pageData,
+      pageNum,
+      pageSize: pageSize || pageData.pageSize,
+    })
+  }
+
+  const onDelete = (id: number) => {
+    deleteArticle(id).then(res => {
+      if (res.code === 200) {
+        message.success('Delete success')
+        getData()
+      }
+    })
+  }
+
+  const showEditModal = (item: Article) => {
+    console.log(item)
+    setModalState({
+      ...modalState,
+      item,
+      visible: true,
+    })
+  }
+
+  const onSubmit: FormProps<FieldType>['onFinish'] = (values) => {
+    editArticle({
+      ...values,
+      id: modalState.item.id,
+    }).then(res => {
+      if (res.code === 200) {
+        message.success('Edit success')
+        setModalState({
+          ...modalState,
+          visible: false,
+        })
+        getData()
+      }
+    })
+  }
 
   useEffect(() => {
     getData()
@@ -94,15 +134,18 @@ function ArticlesComponent() {
       title: 'Actions',
       dataIndex: 'actions',
       render: (_, record) => (
-        <Popconfirm
-          title="Delete the article"
-          description="Are you sure to delete this article?"
-          onConfirm={() => onDelete(record.id)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="primary" size="small">Delete</Button>
-        </Popconfirm>
+        <>
+          <Button type="primary" size="small" onClick={() => showEditModal(record)}>Edit</Button>
+          <Popconfirm
+            title="Delete the article"
+            description="Are you sure to delete this article?"
+            onConfirm={() => onDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" size="small" danger>Delete</Button>
+          </Popconfirm>
+        </>
       )
     }
   ];
@@ -121,6 +164,64 @@ function ArticlesComponent() {
         rowKey={(record) => record.id}
         scroll={{ x: 'max-content', y: 'calc(100vh - 200px)' }}
       />
+      <Modal 
+        title="Edit" 
+        open={modalState.visible} 
+        onCancel={() => setModalState({ ...modalState, visible: false })}
+        footer={null}
+      >
+        <Form
+          name="basic"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onSubmit}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item<FieldType>
+            label="Autohr"
+            name="author"
+            rules={[{ required: true, message: 'Please input author!' }]}
+            initialValue={modalState.item.author}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="Title"
+            name="title"
+            rules={[{ required: true, message: 'Please input title!' }]}
+            initialValue={modalState.item.title}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="Importance"
+            name="importance"
+            rules={[{ required: true, message: 'Please input importance!' }]}
+            initialValue={modalState.item.importance}
+          >
+            <Rate style={{ fontSize: 16 }} />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="Status"
+            name="status"
+            rules={[{ required: true, message: 'Please input status!' }]}
+            initialValue={modalState.item.status}
+          >
+            <Select>
+              <Select.Option value="published">Published</Select.Option>
+              <Select.Option value="draft">Draft</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 10, span: 14 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   )
 }
@@ -141,6 +242,9 @@ const styles = css`
     flex-direction: column;
     .ant-table {
       flex: 1;
+      .ant-btn + .ant-btn {
+        margin-left: 10px;
+      }
     }
     .ant-pagination {
       padding: 0 10px;
