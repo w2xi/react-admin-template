@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { Table, Button, Rate, message, Popconfirm, Modal, Form, Input, Select } from 'antd';
 import { css } from '@emotion/react';
 import dayjs from 'dayjs';
+import { FormattedMessage } from 'react-intl';
+import { useLocale } from '@/locales';
 import { getArticleList, deleteArticle, editArticle } from '@/api/business.ts';
 import type { Article, ArticleList } from '@/interface/business/article';
 import type { TableProps, FormProps } from 'antd';
@@ -19,6 +21,7 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 
 
 function ArticlesComponent() {
+  const { formatMessage } = useLocale();
   const [pageData, setPageData] = useState({
     pageNum: 1,
     pageSize: 10,
@@ -97,45 +100,55 @@ function ArticlesComponent() {
 
   const columns: TableProps<Article>['columns'] = [
     { title: 'ID', dataIndex: 'id', width: 60, align: 'center' },
-    { title: 'Author', dataIndex: 'author', },
+    { title: formatMessage({ id: 'article.table.columns.author' }), dataIndex: 'author', },
     { 
-      title: 'Title', 
+      title: formatMessage({ id: 'article.table.columns.title' }),
       dataIndex: 'title', 
       render: (title: string) => (
         <span>{ title }</span>
       )
     },
     { 
-      title: 'Importance', 
+      title: formatMessage({ id: 'article.table.columns.importance' }),
       dataIndex: 'importance', 
       render: (importance: number) => (
         <Rate value={importance} style={{ fontSize: 16 }} disabled />
       )
     },
-    { title: 'Create Time', dataIndex: 'create_time', width: 150 },
     { 
-      title: 'Views', 
-      dataIndex: 'views', 
+      title: formatMessage({ id: 'article.table.columns.create_time' }),
+      dataIndex: 'create_time', 
+      width: 150 
+    },
+    { 
+      title: formatMessage({ id: 'article.table.columns.views' }),
+      dataIndex: 'views',
+      width: 100,
       render: (views: number) => (
         <a>{ views }</a>
       )
     },
     { 
-      title: 'Status', 
+      title: formatMessage({ id: 'article.table.columns.status' }),
       dataIndex: 'status', 
       render: (status: 'published' | 'draft') => (
         <Button 
           type={status === 'published' ? 'primary' : 'default'}
-          style={{ backgroundColor: status === 'published' ? '#13ce66' : '#eee' }}
-        >{status}</Button>
+          style={{ backgroundColor: status === 'published' ? '#13ce66' : '' }}
+          size="small"
+        >
+          <FormattedMessage id={`article.table.status.${status}`} />
+        </Button>
       ),
     },
     {
-      title: 'Actions',
+      title: formatMessage({ id: 'article.table.columns.actions' }),
       dataIndex: 'actions',
       render: (_, record) => (
         <>
-          <Button type="primary" size="small" onClick={() => showEditModal(record)}>Edit</Button>
+          <Button type="primary" size="small" onClick={() => showEditModal(record)}>
+            <FormattedMessage id="article.table.actions.edit" />
+          </Button>
           <Popconfirm
             title="Delete the article"
             description="Are you sure to delete this article?"
@@ -143,7 +156,9 @@ function ArticlesComponent() {
             okText="Yes"
             cancelText="No"
           >
-            <Button type="primary" size="small" danger>Delete</Button>
+            <Button type="primary" size="small" danger>
+              <FormattedMessage id="article.table.actions.delete" />
+            </Button>
           </Popconfirm>
         </>
       )

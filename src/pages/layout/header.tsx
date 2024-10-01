@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Layout, Avatar, Dropdown, Space, Tooltip, theme as antTheme  } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
+import { FormattedMessage } from 'react-intl';
 import useAppStore from '@/stores/app.ts';
 import useUserStore from "@/stores/user";
-import { useNavigate } from "react-router-dom";
 import UserAvatar from '@/assets/mikoto-misaka.jpg'
 import LanguageSvg from '@/assets/language.svg?react'
 import type { MenuProps } from 'antd'
@@ -11,8 +12,8 @@ const { useToken } = antTheme;
 const { Header } = Layout;
 
 function HeaderComponent() {
-  const { token } = useToken();
   const navigate = useNavigate();
+  const { token } = useToken();
   const { collapsed, locale, theme, setLocale, setTheme, setCollapsed } = useAppStore();
   const { clear } = useUserStore();
 
@@ -75,7 +76,7 @@ function HeaderComponent() {
             onClick,
             items: [
               {
-                label: 'logout',
+                label: <FormattedMessage id="user.logout" />,
                 key: 'logout',
               },
             ], 

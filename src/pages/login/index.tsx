@@ -1,9 +1,11 @@
-import { Form, Input, Button } from "antd" 
-import { login } from "@/api/user.ts"
-import './index.scss'
-import type { LoginParams } from '@/interface/user/login.ts'
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "antd"
+import { FormattedMessage } from "react-intl";
+import { useLocale } from '@/locales';
+import './index.scss'
+import { login } from "@/api/user.ts"
 import useUserStore from "@/stores/user";
+import type { LoginParams } from '@/interface/user/login.ts'
 
 const initialValues: LoginParams = {
   username: 'guest',
@@ -14,6 +16,7 @@ const initialValues: LoginParams = {
 const Login = () => {
   const navigate = useNavigate();
   const { setUserInfo } = useUserStore();
+  const { formatMessage } = useLocale();
 
   const onFinished = (form: LoginParams) => {
     login(form).then(res => {
@@ -28,34 +31,37 @@ const Login = () => {
   return (
     <div className="login-container">
       <Form<LoginParams>
+        style={{ width: 260 }}
         initialValues={initialValues}
         onFinish={onFinished}
       >
-        <h2 className="title">Login</h2>
+        <h1 className="title">Login</h1>
         <Form.Item 
           name="username"
           rules={[
             { 
               required: true, 
-              message: 'Please type your username' 
+              message: formatMessage({ id: 'user.login.username' }),
             }
           ]}
         >
-          <Input placeholder="username" />
+          <Input placeholder={formatMessage({ id: 'user.login.username' })} />
         </Form.Item>
         <Form.Item 
           name="password"
           rules={[
             { 
               required: true, 
-              message: 'Please type your password' 
+              message: formatMessage({ id: 'user.login.password' }),
             }
           ]}
         >
-          <Input type="password" placeholder="password" />
+          <Input type="password" placeholder={formatMessage({ id: 'user.login.password' })} />
         </Form.Item>
         <Form.Item>
-          <Button className="submit-btn" htmlType="submit" type="primary">login</Button>
+          <Button className="submit-btn" htmlType="submit" type="primary">
+            <FormattedMessage id="user.login.button" />
+          </Button>
         </Form.Item>
       </Form>
     </div>
