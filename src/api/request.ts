@@ -1,5 +1,6 @@
 import { message as $message } from 'antd';
 import axios from 'axios';
+import useAppStore from '@/stores/app';
 import type { AxiosRequestConfig } from 'axios';
 
 const axiosInstance = axios.create({
@@ -8,21 +9,29 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
+    const { setLoading } = useAppStore.getState();
+    setLoading(true)
     return config;
   },
   error => {
+    const { setLoading } = useAppStore.getState();
+    setLoading(false)
     Promise.reject(error);
   },
 );
 
 axiosInstance.interceptors.response.use(
   config => {
+    const { setLoading } = useAppStore.getState();
+    setLoading(false)
     if (config?.data?.message) {
       // $message.success(config.data.message)
     }
     return config?.data;
   },
   error => {
+    const { setLoading } = useAppStore.getState();
+    setLoading(false)
     // if needs to navigate to login page when request exception
     // history.replace('/login');
     let errorMessage = '系统异常';
