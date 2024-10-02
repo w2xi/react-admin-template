@@ -2,12 +2,12 @@ import { lazy} from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 import Login from '../pages/login';
 import LayoutPage from '../pages/layout';
-import LinePage from '../pages/charts/line';
-import BarPage from '../pages/charts/bar';
-import ArticlePage from '../pages/business/article';
 import type { FC } from 'react';
 import type { RouteObject } from 'react-router-dom'; 
 
+const BarPage = lazy(() => import('../pages/charts/bar'));
+const LinePage = lazy(() => import('../pages/charts/line'));
+const ArticlePage = lazy(() => import('../pages/business/article'));
 const NotFound = lazy(() => import('../pages/404'));
 
 const routeList: RouteObject[] = [
@@ -45,10 +45,6 @@ const routeList: RouteObject[] = [
       }
     ]
   },
-  {
-    path: '*',
-    element: <NotFound />
-  }
 ];
 
 const RenderRouter: FC = () => {
