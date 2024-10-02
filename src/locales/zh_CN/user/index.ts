@@ -1,5 +1,7 @@
 export const user = {
-  'user.logout': '退出登录',
+  'user.actions.github': '项目地址',
+  'user.actions.home': '首页',
+  'user.actions.logout': '退出登录',
   'user.login.username': '请输入用户名',
   'user.login.password': '请输入密码',
   'user.login.button': '登录',

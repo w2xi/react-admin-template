@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout, Avatar, Dropdown, Space, Tooltip, theme as antTheme  } from "antd"
 import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
+import { Link } from "react-router-dom";
 import useAppStore from '@/stores/app.ts';
 import useUserStore from "@/stores/user";
 import UserAvatar from '@/assets/mikoto-misaka.jpg'
@@ -76,7 +77,17 @@ function HeaderComponent() {
             onClick,
             items: [
               {
-                label: <FormattedMessage id="user.logout" />,
+                label: <Link to="/"><FormattedMessage id="user.actions.home" /></Link>,
+                key: 'home',
+              },
+              {
+                label: <a href="https://github.com/w2xi/react-antd-admin" target="_blank">
+                  <FormattedMessage id="user.actions.github" />
+                </a>,
+                key: 'github',
+              },
+              {
+                label: <FormattedMessage id="user.actions.logout" />,
                 key: 'logout',
               },
             ], 

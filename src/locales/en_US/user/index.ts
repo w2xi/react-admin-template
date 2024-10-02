@@ -1,5 +1,7 @@
 export const user = {
-  'user.logout': 'Logout',
+  'user.actions.github': 'Github',
+  'user.actions.home': 'Home',
+  'user.actions.logout': 'Logout',
   'user.login.username': 'Please type your username',
   'user.login.password': 'Please type your password',
   'user.login.button': 'Login',
