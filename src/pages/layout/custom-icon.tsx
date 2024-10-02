@@ -4,7 +4,8 @@ import {
   BarChartOutlined, 
   AppleOutlined,
   StockOutlined,
-  AppstoreOutlined
+  AppstoreOutlined,
+  FundOutlined,
 } from '@ant-design/icons';
 
 interface CustomIconProps {
@@ -22,6 +23,8 @@ function CustomIcon({ type }: CustomIconProps) {
     return <LineChartOutlined />
   } else if (type === 'icon') {
     return <AppleOutlined />
+  } else if (type === 'business') {
+    return <FundOutlined />
   } else {
     return <AppstoreOutlined />
   }

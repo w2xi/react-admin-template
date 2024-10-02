@@ -61,6 +61,26 @@ const menuList: MenuList = [
       },
     ]
   },
+  {
+    code: 'components',
+    icon: 'components',
+    label: {
+      zh_CN: '组件',
+      en_US: 'Components',
+    },
+    path: '/components',
+    children: [
+      {
+        code: 'json-editor',
+        icon: 'json-editor',
+        label: {
+          zh_CN: 'JSON 编辑器',
+          en_US: 'JSON Editor',
+        },
+        path: '/components/json-editor',
+      },
+    ]
+  }
 ]
 
 Mock.mock('/api/layout/menu', 'get', () => {

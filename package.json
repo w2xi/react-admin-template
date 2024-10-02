@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@emotion/react": "^11.13.3",
+    "@microlink/react-json-view": "^1.23.3",
     "antd": "^5.17.0",
     "axios": "^1.6.8",
     "dayjs": "^1.11.13",
