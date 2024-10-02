@@ -3,18 +3,18 @@ import axios from 'axios';
 import useAppStore from '@/stores/app';
 import type { AxiosRequestConfig } from 'axios';
 
+const { setLoading } = useAppStore.getState();
+
 const axiosInstance = axios.create({
   timeout: 6000,
 });
 
 axiosInstance.interceptors.request.use(
   config => {
-    const { setLoading } = useAppStore.getState();
     setLoading(true)
     return config;
   },
   error => {
-    const { setLoading } = useAppStore.getState();
     setLoading(false)
     Promise.reject(error);
   },
@@ -22,7 +22,6 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   config => {
-    const { setLoading } = useAppStore.getState();
     setLoading(false)
     if (config?.data?.message) {
       // $message.success(config.data.message)
@@ -30,7 +29,6 @@ axiosInstance.interceptors.response.use(
     return config?.data;
   },
   error => {
-    const { setLoading } = useAppStore.getState();
     setLoading(false)
     // if needs to navigate to login page when request exception
     // history.replace('/login');

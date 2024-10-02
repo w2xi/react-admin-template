@@ -2,8 +2,6 @@ import { request } from "./request";
 import type { ArticleListParams, ArticleListResult, ArticleEditParams } from "../interface/business/article";
 
 export const getArticleList = (params: ArticleListParams) => {
-  console.log('params', params);
-  
   return request<ArticleListResult>({
     method: 'get',
     url: '/api/business/article/list',
