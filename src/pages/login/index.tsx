@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button } from "antd"
+import { Form, Input, Button, theme as antTheme } from "antd"
 import { FormattedMessage } from "react-intl";
 import { useLocale } from '@/locales';
 import './index.scss'
@@ -7,16 +7,18 @@ import { login } from "@/api/user.ts"
 import useUserStore from "@/stores/user";
 import type { LoginParams } from '@/interface/user/login.ts'
 
+const { useToken } = antTheme;
+
 const initialValues: LoginParams = {
   username: 'guest',
   password: 'guest',
 };
 
-
 const Login = () => {
   const navigate = useNavigate();
   const { setUserInfo } = useUserStore();
   const { formatMessage } = useLocale();
+  const { token } = useToken();
 
   const onFinished = (form: LoginParams) => {
     login(form).then(res => {
@@ -29,7 +31,10 @@ const Login = () => {
   }
 
   return (
-    <div className="login-container">
+    <div 
+      className="login-container" 
+      style={{ backgroundColor: token.colorBgContainer }}
+    >
       <Form<LoginParams>
         style={{ width: 260 }}
         initialValues={initialValues}
