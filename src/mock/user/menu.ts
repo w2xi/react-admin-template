@@ -80,6 +80,35 @@ const menuList: MenuList = [
         path: '/components/json-editor',
       },
     ]
+  },
+  {
+    code: 'error-page',
+    icon: 'error-page',
+    label: {
+      zh_CN: '错误页面',
+      en_US: 'Error Page',
+    },
+    path: '/error',
+    children: [
+      {
+        code: '403',
+        icon: '403',
+        label: {
+          zh_CN: '403',
+          en_US: '403',
+        },
+        path: '/error/403',
+      },
+      {
+        code: '404',
+        icon: '404',
+        label: {
+          zh_CN: '404',
+          en_US: '404',
+        },
+        path: '/error/404',
+      }
+    ]
   }
 ]
 

@@ -2,10 +2,11 @@ import {
   DashboardOutlined, 
   LineChartOutlined, 
   BarChartOutlined, 
-  AppleOutlined,
   StockOutlined,
   AppstoreOutlined,
   FundOutlined,
+  LockOutlined,
+  WarningOutlined,
 } from '@ant-design/icons';
 
 interface CustomIconProps {
@@ -21,12 +22,14 @@ function CustomIcon({ type }: CustomIconProps) {
     return <BarChartOutlined />
   } else if (type === 'line-chart') {
     return <LineChartOutlined />
-  } else if (type === 'icon') {
-    return <AppleOutlined />
+  } else if (type === 'components') {
+    return <AppstoreOutlined />
   } else if (type === 'business') {
     return <FundOutlined />
+  } else if (type === 'error-page') {
+    return <WarningOutlined />
   } else {
-    return <AppstoreOutlined />
+    return null
   }
 }
 

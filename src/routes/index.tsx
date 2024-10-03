@@ -9,7 +9,8 @@ const BarPage = lazy(() => import('../pages/charts/bar'));
 const LinePage = lazy(() => import('../pages/charts/line'));
 const ArticlePage = lazy(() => import('../pages/business/article'));
 const JSONEditorPage = lazy(() => import('../pages/components-demo/json-editor'));
-const NotFound = lazy(() => import('../pages/404'));
+const NotFound = lazy(() => import('../pages/error/404'));
+const NoPermission = lazy(() => import('../pages/error/403'));
 
 const routeList: RouteObject[] = [
   {
@@ -43,6 +44,14 @@ const routeList: RouteObject[] = [
       {
         path: '/components/json-editor',
         element: <JSONEditorPage />
+      },
+      {
+        path: '/error/404',
+        element: <NotFound />
+      },
+      {
+        path: '/error/403',
+        element: <NoPermission />
       },
       {
         path: '*',
