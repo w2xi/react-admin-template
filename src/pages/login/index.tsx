@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <div 
       className="login-container" 
-      style={{ backgroundColor: token.colorBgContainer }}
+      style={{ backgroundColor: token.colorBgLayout }}
     >
       <Form<LoginParams>
         style={{ width: 260 }}
