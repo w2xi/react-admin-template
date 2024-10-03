@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Layout, theme as antTheme } from "antd";
 import { Outlet } from 'react-router-dom';
 import './index.scss';
@@ -47,7 +47,9 @@ const LayoutPage: React.FC = () => {
       <Layout>
         <HeaderComponent />
         <Content className='content'>
-          <Outlet />
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
         </Content>
       </Layout>
     </Layout>
