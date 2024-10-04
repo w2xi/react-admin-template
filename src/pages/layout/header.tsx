@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from "react-router-dom";
 import useAppStore from '@/stores/app.ts';
 import useUserStore from "@/stores/user";
+import useTabBarStore from '@/stores/tabBar'
 import UserAvatar from '@/assets/mikoto-misaka.jpg'
 import LanguageSvg from '@/assets/language.svg?react'
 import type { MenuProps } from 'antd'
@@ -16,12 +17,14 @@ function HeaderComponent() {
   const navigate = useNavigate();
   const { token } = useToken();
   const { collapsed, locale, theme, setLocale, setTheme, setCollapsed } = useAppStore();
-  const { clear } = useUserStore();
+  const userStore = useUserStore();
+  const tabBarStore = useTabBarStore();
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
     switch (key) {
       case 'logout': {
-        clear()
+        userStore.clear()
+        tabBarStore.clear()
         navigate('/login')
         break;
       }

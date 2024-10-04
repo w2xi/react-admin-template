@@ -12,10 +12,6 @@ import useAppStore from './stores/app'
 function App() {
   const { theme, locale, loading } = useAppStore()
 
-  useEffect(() => {
-    console.log('location', location.pathname);
-  }, [location.pathname])
-
   const getAntdLocale = () => {
     if (locale === 'zh_CN') {
       return zhCN

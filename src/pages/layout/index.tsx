@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import './index.scss';
 import MenuComponent from './menu';
 import HeaderComponent from './header';
+import TabBar from './tabBar.tsx';
 import { getMenuList } from '../../api/layout.ts';
 import useUserStore from '@/stores/user.ts';
 import useAppStore from '@/stores/app.ts';
@@ -46,6 +47,7 @@ const LayoutPage: React.FC = () => {
       </Sider>
       <Layout>
         <HeaderComponent />
+        <TabBar />
         <Content className='content'>
           <Suspense fallback={null}>
             <Outlet />

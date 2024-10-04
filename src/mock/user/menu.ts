@@ -11,6 +11,7 @@ const menuList: MenuList = [
       en_US: 'Dashboard',
     },
     path: '/dashboard',
+    affix: true,
   },
   {
     code: 'charts',
