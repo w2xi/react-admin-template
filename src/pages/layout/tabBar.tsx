@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import { Tag } from 'antd';
+import { Tag, theme as antTheme } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 import useAppStore from '@/stores/app';
 import useTabBarStore from '@/stores/tabBar';
 import useUserStore from '@/stores/user'
 import type { MenuItem, MenuList } from '@/interface/layout/menu'
+
+const { useToken } = antTheme;
 
 const findMenuByPath = (
   menus: MenuList, 
@@ -46,6 +48,7 @@ function TabBar() {
   const menuList = useUserStore(state => state.menuList);
   const locale = useAppStore(state => state.locale);
   const { visitedRoutes, addVisitedRoute, setVisitedRoute } = useTabBarStore();
+  const { token } = useToken();
 
   const handleClose = (index: number) => {
     const newVisitedRoutes = [...visitedRoutes];
@@ -69,7 +72,13 @@ function TabBar() {
 
 
   return (
-    <div css={styles}>
+    <div 
+      style={{ 
+        backgroundColor: token.colorBgElevated,
+        borderBottom: `1px solid ${token.colorBorderBg}`,
+      }} 
+      css={styles}
+    >
       { visitedRoutes.map((route, index) => (
         <Tag
           color={ location.pathname === route.path ? 'blue' : 'default' }
@@ -89,7 +98,9 @@ function TabBar() {
 export default TabBar;
 
 const styles = css`
-  padding: 0 10px;
+  padding: 4px 10px;
+  margin-top: 1px;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.1);
   .ant-tag {
     height: 26px;
     line-height: 26px;
