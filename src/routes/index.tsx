@@ -5,6 +5,7 @@ import LayoutPage from '../pages/layout';
 import type { FC } from 'react';
 import type { RouteObject } from 'react-router-dom'; 
 
+const Dashboard = lazy(() => import('../pages/dashboard'));
 const BarPage = lazy(() => import('../pages/charts/bar'));
 const LinePage = lazy(() => import('../pages/charts/line'));
 const ArticlePage = lazy(() => import('../pages/business/article'));
@@ -27,7 +28,7 @@ const routeList: RouteObject[] = [
       },
       {
         path: '/dashboard',
-        element: <div>dashboard</div>
+        element: <Dashboard />
       },
       {
         path: '/charts/bar',

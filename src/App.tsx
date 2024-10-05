@@ -1,4 +1,4 @@
-import { useEffect, Suspense } from 'react'
+import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { Spin, ConfigProvider, theme as antTheme } from 'antd'
 import { IntlProvider } from 'react-intl'
