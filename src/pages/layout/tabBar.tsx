@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { Tag, theme as antTheme } from 'antd';
+import { Tag, Dropdown, theme as antTheme } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { FormattedMessage } from 'react-intl';
 import useAppStore from '@/stores/app';
 import useTabBarStore from '@/stores/tabBar';
 import useUserStore from '@/stores/user'
 import type { MenuItem, MenuList } from '@/interface/layout/menu'
+import type { MenuProps } from 'antd'
 
 const { useToken } = antTheme;
 
@@ -58,8 +61,7 @@ function TabBar() {
   }
   
   useEffect(() => {
-    const affixTags = initAffixTags(menuList);
-    addVisitedRoute(affixTags);
+    addVisitedRoute(initAffixTags(menuList));
   }, [menuList])
 
   useEffect(() => {
@@ -70,6 +72,28 @@ function TabBar() {
     }
   }, [location.pathname, locale])
 
+  const handleClick: MenuProps['onClick'] = ({ key }) => {
+    const index = visitedRoutes.findIndex(route => route.path === location.pathname)
+    const affixTags = initAffixTags(menuList);
+    const currentRoute = visitedRoutes[index]
+    switch (key) {
+      case 'close': {
+        if (!currentRoute.affix) {
+          handleClose(index)
+        }
+        break;
+      }
+      case 'close-others': {
+        setVisitedRoute(affixTags.concat(visitedRoutes[index]))
+        break;
+      }
+      case 'close-all': {
+        setVisitedRoute(affixTags)
+        navigate('/')
+        break;
+      }
+    }
+  }
 
   return (
     <div 
@@ -91,6 +115,29 @@ function TabBar() {
           { route.label[locale] }
         </Tag>
       )) }
+
+      <Dropdown 
+        menu={{
+          onClick: handleClick,
+          items: [
+            {
+              label: <FormattedMessage id="tabBar.actions.close" />,
+              key: 'close',
+            },
+            {
+              label: <FormattedMessage id="tabBar.actions.close-others" />,
+              key: 'close-others',
+            },
+            {
+              label: <FormattedMessage id="tabBar.actions.close-all" />,
+              key: 'close-all',
+            },
+          ]
+        }}
+        trigger={['click']}
+      >
+        <SettingOutlined className="icon-setting" />
+      </Dropdown>
     </div>
   )
 }
@@ -98,6 +145,7 @@ function TabBar() {
 export default TabBar;
 
 const styles = css`
+  position: relative;
   padding: 4px 10px;
   margin-top: 1px;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.1);
@@ -113,5 +161,12 @@ const styles = css`
       font-size: 8px;
       margin-left: 6px;
     }
+  }
+  .icon-setting {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
   }
 `
