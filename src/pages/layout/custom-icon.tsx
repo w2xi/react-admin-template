@@ -5,7 +5,6 @@ import {
   StockOutlined,
   AppstoreOutlined,
   FundOutlined,
-  LockOutlined,
   WarningOutlined,
 } from '@ant-design/icons';
 

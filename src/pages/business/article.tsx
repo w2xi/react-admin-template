@@ -70,7 +70,6 @@ function ArticlesComponent() {
   }
 
   const showEditModal = (item: Article) => {
-    console.log(item)
     setModalState({
       ...modalState,
       item,

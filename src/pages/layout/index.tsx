@@ -20,9 +20,6 @@ const LayoutPage: React.FC = () => {
 
   const fetchMenuList = async () => {
     const { code, result } = await getMenuList()
-
-    console.log(code, result)
-
     if (code === 200) {
       setMenuList(result)
     }

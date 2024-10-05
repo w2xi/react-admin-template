@@ -22,7 +22,6 @@ const Login = () => {
 
   const onFinished = (form: LoginParams) => {
     login(form).then(res => {
-      console.log(res);
       if (res.code === 200) {
         setUserInfo(res.result)
         navigate('/')
