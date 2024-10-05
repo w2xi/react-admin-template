@@ -5,17 +5,19 @@ import type { ArticleList } from '@/interface/business/article'
 const data: ArticleList = []
 const count = 100
 
-for (let i = 0; i < count; i++) { 
-  data.push(Mock.mock({
-    id: '@increment',
-    author: '@first',
-    title: '@title',
-    content: '@title',
-    importance: '@integer(1, 3)',
-    create_time: '@datetime',
-    views: '@integer(300, 5000)',
-    'status|1': ['published', 'draft'],
-  }))
+for (let i = 0; i < count; i++) {
+  data.push(
+    Mock.mock({
+      id: '@increment',
+      author: '@first',
+      title: '@title',
+      content: '@title',
+      importance: '@integer(1, 3)',
+      create_time: '@datetime',
+      views: '@integer(300, 5000)',
+      'status|1': ['published', 'draft'],
+    }),
+  )
 }
 
 Mock.mock('/api/business/article/list', 'get', (config: any) => {
@@ -50,4 +52,4 @@ Mock.mock('/api/business/article/edit', 'post', (config: any) => {
     }
   }
   return response({})
-})  
+})

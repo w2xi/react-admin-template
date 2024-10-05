@@ -1,9 +1,9 @@
-import { Button, Result } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import type { FC } from 'react';
+import { Button, Result } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import type { FC } from 'react'
 
 const NotFoundPage: FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <Result

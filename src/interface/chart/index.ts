@@ -1,16 +1,16 @@
-export type BarChartResult = BarChartData[];
+export type BarChartResult = BarChartData[]
 
-export type LineChartResult = LineChartData[];
+export type LineChartResult = LineChartData[]
 
 export interface BarChartData {
-  name: string;
-  uv: number;
-  pv: number;
+  name: string
+  uv: number
+  pv: number
 }
 
 export interface LineChartData {
-  name: string;
-  uv: number;
-  pv: number;
-  amt: number;
+  name: string
+  uv: number
+  pv: number
+  amt: number
 }

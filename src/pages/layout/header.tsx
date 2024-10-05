@@ -1,24 +1,24 @@
-import { useNavigate } from "react-router-dom";
-import { Layout, Avatar, Dropdown, Space, Tooltip, theme as antTheme  } from "antd"
-import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
-import { FormattedMessage } from 'react-intl';
-import { Link } from "react-router-dom";
-import useAppStore from '@/stores/app.ts';
-import useUserStore from "@/stores/user";
+import { useNavigate } from 'react-router-dom'
+import { Layout, Avatar, Dropdown, Space, Tooltip, theme as antTheme } from 'antd'
+import { MenuUnfoldOutlined, MenuFoldOutlined, CaretDownOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons'
+import { FormattedMessage } from 'react-intl'
+import { Link } from 'react-router-dom'
+import useAppStore from '@/stores/app.ts'
+import useUserStore from '@/stores/user'
 import useTabBarStore from '@/stores/tabBar'
 import UserAvatar from '@/assets/mikoto-misaka.jpg'
 import LanguageSvg from '@/assets/language.svg?react'
 import type { MenuProps } from 'antd'
 
-const { useToken } = antTheme;
-const { Header } = Layout;
+const { useToken } = antTheme
+const { Header } = Layout
 
 function HeaderComponent() {
-  const navigate = useNavigate();
-  const { token } = useToken();
-  const { collapsed, locale, theme, setLocale, setTheme, setCollapsed } = useAppStore();
-  const userStore = useUserStore();
-  const tabBarStore = useTabBarStore();
+  const navigate = useNavigate()
+  const { token } = useToken()
+  const { collapsed, locale, theme, setLocale, setTheme, setCollapsed } = useAppStore()
+  const userStore = useUserStore()
+  const tabBarStore = useTabBarStore()
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
     switch (key) {
@@ -26,15 +26,15 @@ function HeaderComponent() {
         userStore.clear()
         tabBarStore.clear()
         navigate('/login')
-        break;
+        break
       }
       case 'zh_CN': {
         setLocale('zh_CN')
-        break;
+        break
       }
       case 'en_US': {
         setLocale('en_US')
-        break;
+        break
       }
     }
   }
@@ -42,15 +42,12 @@ function HeaderComponent() {
   return (
     <Header className="header" style={{ backgroundColor: token.colorBgContainer }}>
       <span className="action-btn" onClick={() => setCollapsed(!collapsed)}>
-        { 
-          collapsed 
-            ? <MenuUnfoldOutlined /> 
-            : <MenuFoldOutlined />}
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </span>
       <div className="actions">
         <Tooltip title={theme === 'dark' ? 'light mode' : 'dark mode'}>
           <span className="action-btn" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-          { theme === 'dark' ? <SunOutlined /> : <MoonOutlined /> }
+            {theme === 'dark' ? <SunOutlined /> : <MoonOutlined />}
           </span>
         </Tooltip>
         <Dropdown
@@ -75,26 +72,32 @@ function HeaderComponent() {
             <LanguageSvg height={18} width={18} />
           </span>
         </Dropdown>
-        <Dropdown 
+        <Dropdown
           menu={{
             onClick,
             items: [
               {
-                label: <Link to="/"><FormattedMessage id="user.actions.home" /></Link>,
+                label: (
+                  <Link to="/">
+                    <FormattedMessage id="user.actions.home" />
+                  </Link>
+                ),
                 key: 'home',
               },
               {
-                label: <a href="https://github.com/w2xi/react-antd-admin" target="_blank">
-                  <FormattedMessage id="user.actions.github" />
-                </a>,
+                label: (
+                  <a href="https://github.com/w2xi/react-antd-admin" target="_blank">
+                    <FormattedMessage id="user.actions.github" />
+                  </a>
+                ),
                 key: 'github',
               },
               {
                 label: <FormattedMessage id="user.actions.logout" />,
                 key: 'logout',
               },
-            ], 
-          }} 
+            ],
+          }}
           trigger={['click']}
         >
           <Space style={{ cursor: 'pointer' }}>
@@ -107,4 +110,4 @@ function HeaderComponent() {
   )
 }
 
-export default HeaderComponent;
+export default HeaderComponent

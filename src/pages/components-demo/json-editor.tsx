@@ -8,18 +8,18 @@ const jsonData = { ...pkg }
 function JSONEditorPage() {
   return (
     <div css={styles}>
-      <Alert 
-        type="info" 
+      <Alert
+        type="info"
         message={
           <span>
-            based on <a href="https://github.com/microlinkhq/react-json-view" target="_blank">react-json-view</a>
+            based on{' '}
+            <a href="https://github.com/microlinkhq/react-json-view" target="_blank">
+              react-json-view
+            </a>
           </span>
         }
       />
-      <ReactJson 
-        theme="monokai"
-        src={jsonData}
-      />
+      <ReactJson theme="monokai" src={jsonData} />
     </div>
   )
 }

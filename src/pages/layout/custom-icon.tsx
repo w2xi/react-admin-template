@@ -1,15 +1,15 @@
-import { 
-  DashboardOutlined, 
-  LineChartOutlined, 
-  BarChartOutlined, 
+import {
+  DashboardOutlined,
+  LineChartOutlined,
+  BarChartOutlined,
   StockOutlined,
   AppstoreOutlined,
   FundOutlined,
   WarningOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 
 interface CustomIconProps {
-  type?: string;
+  type?: string
 }
 
 function CustomIcon({ type }: CustomIconProps) {
@@ -32,4 +32,4 @@ function CustomIcon({ type }: CustomIconProps) {
   }
 }
 
-export default CustomIcon;
+export default CustomIcon

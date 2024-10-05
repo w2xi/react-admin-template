@@ -4,16 +4,16 @@ import type { LoginResult } from '@/interface/user/login'
 import { persist } from 'zustand/middleware'
 
 type Store = {
-  userInfo?: LoginResult;
-  menuList: MenuList;
-  setMenuList: (menuList: MenuList) => void;
-  setUserInfo: (userInfo: LoginResult) => void;
-  clear: () => void;
+  userInfo?: LoginResult
+  menuList: MenuList
+  setMenuList: (menuList: MenuList) => void
+  setUserInfo: (userInfo: LoginResult) => void
+  clear: () => void
 }
 
 const useUserStore = create<Store>()(
   persist(
-    (set) => ({
+    set => ({
       userInfo: undefined,
       menuList: [],
       setMenuList: (menuList: MenuList) => set(() => ({ menuList })),
@@ -25,12 +25,12 @@ const useUserStore = create<Store>()(
             menuList: [],
           }
         })
-      }
+      },
     }),
     {
       name: 'user-info',
-    }
-  )
+    },
+  ),
 )
 
 export default useUserStore

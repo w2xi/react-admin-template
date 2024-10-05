@@ -1,5 +1,5 @@
-import { request } from "./request";
-import type { BarChartResult, LineChartResult } from "../interface/chart";
+import { request } from './request'
+import type { BarChartResult, LineChartResult } from '../interface/chart'
 
 export const getBarChartData = () => {
   return request<BarChartResult>({

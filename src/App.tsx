@@ -36,8 +36,7 @@ function App() {
               style={{
                 backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.44)' : 'rgba(255, 255, 255, 0.44)',
               }}
-            >
-            </Spin>
+            ></Spin>
             <RouteGuard>
               <RenderRouter />
             </RouteGuard>

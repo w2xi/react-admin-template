@@ -1,9 +1,7 @@
-import Chart from "./chart";
+import Chart from './chart'
 
 const Dashboard = () => {
-  return (
-    <Chart />
-  )
+  return <Chart />
 }
 
-export default Dashboard;
+export default Dashboard

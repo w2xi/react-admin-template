@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getLineChartData } from '@/api/chart.ts';
-import type { LineChartResult } from '@/interface/chart';
+import { useEffect, useState } from 'react'
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { getLineChartData } from '@/api/chart.ts'
+import type { LineChartResult } from '@/interface/chart'
 import type { CategoricalChartState } from 'recharts/types/chart/types'
 
 const onClick = (e?: CategoricalChartState) => {
-  console.log(e);
-};
+  console.log(e)
+}
 
 function LineComponent() {
-  const [data, setData] = useState<LineChartResult>([]);
+  const [data, setData] = useState<LineChartResult>([])
 
   useEffect(() => {
     getLineChartData().then(res => {
@@ -31,7 +31,7 @@ function LineComponent() {
         <Legend />
       </LineChart>
     </ResponsiveContainer>
-  );
+  )
 }
 
-export default LineComponent;
+export default LineComponent

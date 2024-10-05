@@ -1,37 +1,36 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Table, Button, Rate, message, Popconfirm, Modal, Form, Input, Select } from 'antd';
-import { css } from '@emotion/react';
-import dayjs from 'dayjs';
-import { FormattedMessage } from 'react-intl';
-import { useLocale } from '@/locales';
-import { getArticleList, deleteArticle, editArticle } from '@/api/business.ts';
-import type { Article, ArticleList } from '@/interface/business/article';
-import type { TableProps, FormProps } from 'antd';
+import { useEffect, useState, useCallback } from 'react'
+import { Table, Button, Rate, message, Popconfirm, Modal, Form, Input, Select } from 'antd'
+import { css } from '@emotion/react'
+import dayjs from 'dayjs'
+import { FormattedMessage } from 'react-intl'
+import { useLocale } from '@/locales'
+import { getArticleList, deleteArticle, editArticle } from '@/api/business.ts'
+import type { Article, ArticleList } from '@/interface/business/article'
+import type { TableProps, FormProps } from 'antd'
 
 interface FieldType {
-  author: string;
-  title: string;
-  importance: number;
-  status: 'published' | 'draft';
+  author: string
+  title: string
+  importance: number
+  status: 'published' | 'draft'
 }
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
-
+const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
+  console.log('Failed:', errorInfo)
+}
 
 function ArticlesComponent() {
-  const { formatMessage } = useLocale();
+  const { formatMessage } = useLocale()
   const [pageData, setPageData] = useState({
     pageNum: 1,
     pageSize: 10,
     total: 0,
-  });
-  const [data, setData] = useState<ArticleList>([]);
+  })
+  const [data, setData] = useState<ArticleList>([])
   const [modalState, setModalState] = useState({
     visible: false,
     item: {} as Article,
-  });
+  })
 
   const getData = useCallback(() => {
     getArticleList({
@@ -77,7 +76,7 @@ function ArticlesComponent() {
     })
   }
 
-  const onSubmit: FormProps<FieldType>['onFinish'] = (values) => {
+  const onSubmit: FormProps<FieldType>['onFinish'] = values => {
     editArticle({
       ...values,
       id: modalState.item.id,
@@ -99,39 +98,33 @@ function ArticlesComponent() {
 
   const columns: TableProps<Article>['columns'] = [
     { title: 'ID', dataIndex: 'id', width: 60, align: 'center' },
-    { title: formatMessage({ id: 'article.table.columns.author' }), dataIndex: 'author', },
-    { 
+    { title: formatMessage({ id: 'article.table.columns.author' }), dataIndex: 'author' },
+    {
       title: formatMessage({ id: 'article.table.columns.title' }),
-      dataIndex: 'title', 
-      render: (title: string) => (
-        <span>{ title }</span>
-      )
+      dataIndex: 'title',
+      render: (title: string) => <span>{title}</span>,
     },
-    { 
+    {
       title: formatMessage({ id: 'article.table.columns.importance' }),
-      dataIndex: 'importance', 
-      render: (importance: number) => (
-        <Rate value={importance} style={{ fontSize: 16 }} disabled />
-      )
+      dataIndex: 'importance',
+      render: (importance: number) => <Rate value={importance} style={{ fontSize: 16 }} disabled />,
     },
-    { 
+    {
       title: formatMessage({ id: 'article.table.columns.create_time' }),
-      dataIndex: 'create_time', 
-      width: 150 
+      dataIndex: 'create_time',
+      width: 150,
     },
-    { 
+    {
       title: formatMessage({ id: 'article.table.columns.views' }),
       dataIndex: 'views',
       width: 100,
-      render: (views: number) => (
-        <a>{ views }</a>
-      )
+      render: (views: number) => <a>{views}</a>,
     },
-    { 
+    {
       title: formatMessage({ id: 'article.table.columns.status' }),
-      dataIndex: 'status', 
+      dataIndex: 'status',
       render: (status: 'published' | 'draft') => (
-        <Button 
+        <Button
           type={status === 'published' ? 'primary' : 'default'}
           style={{ backgroundColor: status === 'published' ? '#13ce66' : '' }}
           size="small"
@@ -160,27 +153,27 @@ function ArticlesComponent() {
             </Button>
           </Popconfirm>
         </>
-      )
-    }
-  ];
+      ),
+    },
+  ]
 
   return (
     <div css={styles}>
       <Table
-        dataSource={data} 
-        columns={columns} 
-        pagination={{ 
+        dataSource={data}
+        columns={columns}
+        pagination={{
           current: pageData.pageNum,
           pageSize: pageData.pageSize,
           total: pageData.total,
           onChange: onPageChange,
         }}
-        rowKey={(record) => record.id}
+        rowKey={record => record.id}
         scroll={{ x: 'max-content', y: 'calc(100vh - 200px)' }}
       />
-      <Modal 
-        title="Edit" 
-        open={modalState.visible} 
+      <Modal
+        title="Edit"
+        open={modalState.visible}
         onCancel={() => setModalState({ ...modalState, visible: false })}
         footer={null}
       >
@@ -240,7 +233,7 @@ function ArticlesComponent() {
   )
 }
 
-export default ArticlesComponent;
+export default ArticlesComponent
 
 const styles = css`
   height: 100%;
@@ -264,4 +257,4 @@ const styles = css`
       padding: 0 10px;
     }
   }
-`;
+`

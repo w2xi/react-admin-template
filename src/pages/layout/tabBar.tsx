@@ -1,22 +1,18 @@
-import { useEffect } from 'react';
-import { Tag, Dropdown, theme as antTheme } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import { css } from '@emotion/react';
-import { FormattedMessage } from 'react-intl';
-import useAppStore from '@/stores/app';
-import useTabBarStore from '@/stores/tabBar';
+import { useEffect } from 'react'
+import { Tag, Dropdown, theme as antTheme } from 'antd'
+import { SettingOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
+import { css } from '@emotion/react'
+import { FormattedMessage } from 'react-intl'
+import useAppStore from '@/stores/app'
+import useTabBarStore from '@/stores/tabBar'
 import useUserStore from '@/stores/user'
 import type { MenuItem, MenuList } from '@/interface/layout/menu'
 import type { MenuProps } from 'antd'
 
-const { useToken } = antTheme;
+const { useToken } = antTheme
 
-const findMenuByPath = (
-  menus: MenuList, 
-  path: string, 
-  locale: 'zh_CN' | 'en_US'
- ): MenuItem | undefined => {
+const findMenuByPath = (menus: MenuList, path: string, locale: 'zh_CN' | 'en_US'): MenuItem | undefined => {
   for (const menu of menus) {
     if (menu.path === path) {
       return menu
@@ -47,21 +43,21 @@ const initAffixTags = (menus: MenuList) => {
 }
 
 function TabBar() {
-  const navigate = useNavigate();
-  const menuList = useUserStore(state => state.menuList);
-  const locale = useAppStore(state => state.locale);
-  const { visitedRoutes, addVisitedRoute, setVisitedRoute } = useTabBarStore();
-  const { token } = useToken();
+  const navigate = useNavigate()
+  const menuList = useUserStore(state => state.menuList)
+  const locale = useAppStore(state => state.locale)
+  const { visitedRoutes, addVisitedRoute, setVisitedRoute } = useTabBarStore()
+  const { token } = useToken()
 
   const handleClose = (index: number) => {
-    const newVisitedRoutes = [...visitedRoutes];
-    newVisitedRoutes.splice(index, 1);
-    navigate(newVisitedRoutes[newVisitedRoutes.length - 1].path);
-    setVisitedRoute(newVisitedRoutes);
+    const newVisitedRoutes = [...visitedRoutes]
+    newVisitedRoutes.splice(index, 1)
+    navigate(newVisitedRoutes[newVisitedRoutes.length - 1].path)
+    setVisitedRoute(newVisitedRoutes)
   }
-  
+
   useEffect(() => {
-    addVisitedRoute(initAffixTags(menuList));
+    addVisitedRoute(initAffixTags(menuList))
   }, [menuList])
 
   useEffect(() => {
@@ -74,49 +70,49 @@ function TabBar() {
 
   const handleClick: MenuProps['onClick'] = ({ key }) => {
     const index = visitedRoutes.findIndex(route => route.path === location.pathname)
-    const affixTags = initAffixTags(menuList);
+    const affixTags = initAffixTags(menuList)
     const currentRoute = visitedRoutes[index]
     switch (key) {
       case 'close': {
         if (!currentRoute.affix) {
           handleClose(index)
         }
-        break;
+        break
       }
       case 'close-others': {
         setVisitedRoute(affixTags.concat(visitedRoutes[index]))
-        break;
+        break
       }
       case 'close-all': {
         setVisitedRoute(affixTags)
         navigate('/')
-        break;
+        break
       }
     }
   }
 
   return (
-    <div 
-      style={{ 
+    <div
+      style={{
         backgroundColor: token.colorBgElevated,
         borderBottom: `1px solid ${token.colorBorderBg}`,
-      }} 
+      }}
       css={styles}
     >
-      { visitedRoutes.map((route, index) => (
+      {visitedRoutes.map((route, index) => (
         <Tag
-          color={ location.pathname === route.path ? 'blue' : 'default' }
+          color={location.pathname === route.path ? 'blue' : 'default'}
           onClick={() => navigate(route.path)}
-          key={route.path} 
+          key={route.path}
           style={{ cursor: 'pointer' }}
           onClose={() => handleClose(index)}
-          closable={ !route.affix}
+          closable={!route.affix}
         >
-          { route.label[locale] }
+          {route.label[locale]}
         </Tag>
-      )) }
+      ))}
 
-      <Dropdown 
+      <Dropdown
         menu={{
           onClick: handleClick,
           items: [
@@ -132,7 +128,7 @@ function TabBar() {
               label: <FormattedMessage id="tabBar.actions.close-all" />,
               key: 'close-all',
             },
-          ]
+          ],
         }}
         trigger={['click']}
       >
@@ -142,7 +138,7 @@ function TabBar() {
   )
 }
 
-export default TabBar;
+export default TabBar
 
 const styles = css`
   position: relative;

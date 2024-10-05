@@ -1,24 +1,24 @@
-import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, theme as antTheme } from "antd"
-import { FormattedMessage } from "react-intl";
-import { useLocale } from '@/locales';
+import { useNavigate } from 'react-router-dom'
+import { Form, Input, Button, theme as antTheme } from 'antd'
+import { FormattedMessage } from 'react-intl'
+import { useLocale } from '@/locales'
 import './index.scss'
-import { login } from "@/api/user.ts"
-import useUserStore from "@/stores/user";
+import { login } from '@/api/user.ts'
+import useUserStore from '@/stores/user'
 import type { LoginParams } from '@/interface/user/login.ts'
 
-const { useToken } = antTheme;
+const { useToken } = antTheme
 
 const initialValues: LoginParams = {
   username: 'guest',
   password: 'guest',
-};
+}
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { setUserInfo } = useUserStore();
-  const { formatMessage } = useLocale();
-  const { token } = useToken();
+  const navigate = useNavigate()
+  const { setUserInfo } = useUserStore()
+  const { formatMessage } = useLocale()
+  const { token } = useToken()
 
   const onFinished = (form: LoginParams) => {
     login(form).then(res => {
@@ -30,34 +30,27 @@ const Login = () => {
   }
 
   return (
-    <div 
-      className="login-container" 
-      style={{ backgroundColor: token.colorBgLayout }}
-    >
-      <Form<LoginParams>
-        style={{ width: 260 }}
-        initialValues={initialValues}
-        onFinish={onFinished}
-      >
+    <div className="login-container" style={{ backgroundColor: token.colorBgLayout }}>
+      <Form<LoginParams> style={{ width: 260 }} initialValues={initialValues} onFinish={onFinished}>
         <h1 className="title">Login</h1>
-        <Form.Item 
+        <Form.Item
           name="username"
           rules={[
-            { 
-              required: true, 
+            {
+              required: true,
               message: formatMessage({ id: 'user.login.username' }),
-            }
+            },
           ]}
         >
           <Input placeholder={formatMessage({ id: 'user.login.username' })} />
         </Form.Item>
-        <Form.Item 
+        <Form.Item
           name="password"
           rules={[
-            { 
-              required: true, 
+            {
+              required: true,
               message: formatMessage({ id: 'user.login.password' }),
-            }
+            },
           ]}
         >
           <Input type="password" placeholder={formatMessage({ id: 'user.login.password' })} />
@@ -72,4 +65,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Login

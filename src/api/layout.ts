@@ -1,5 +1,5 @@
-import { request } from "./request";
-import type { MenuList } from "../interface/layout/menu";
+import { request } from './request'
+import type { MenuList } from '../interface/layout/menu'
 
 export const getMenuList = () => {
   return request<MenuList>({

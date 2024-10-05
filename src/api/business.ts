@@ -1,5 +1,5 @@
-import { request } from "./request";
-import type { ArticleListParams, ArticleListResult, ArticleEditParams } from "../interface/business/article";
+import { request } from './request'
+import type { ArticleListParams, ArticleListResult, ArticleEditParams } from '../interface/business/article'
 
 export const getArticleList = (params: ArticleListParams) => {
   return request<ArticleListResult>({

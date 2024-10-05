@@ -40,7 +40,7 @@ const menuList: MenuList = [
         },
         path: '/charts/line',
       },
-    ]
+    ],
   },
   {
     code: 'Business',
@@ -60,7 +60,7 @@ const menuList: MenuList = [
         },
         path: '/business/article',
       },
-    ]
+    ],
   },
   {
     code: 'components',
@@ -80,7 +80,7 @@ const menuList: MenuList = [
         },
         path: '/components/json-editor',
       },
-    ]
+    ],
   },
   {
     code: 'error-page',
@@ -108,9 +108,9 @@ const menuList: MenuList = [
           en_US: '404',
         },
         path: '/error/404',
-      }
-    ]
-  }
+      },
+    ],
+  },
 ]
 
 Mock.mock('/api/layout/menu', 'get', () => {
