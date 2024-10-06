@@ -86,7 +86,7 @@ function HeaderComponent() {
               },
               {
                 label: (
-                  <a href="https://github.com/w2xi/react-antd-admin" target="_blank">
+                  <a href="https://github.com/w2xi/react-admin-template" target="_blank">
                     <FormattedMessage id="user.actions.github" />
                   </a>
                 ),
