@@ -1,5 +1,5 @@
 import { Menu } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import useAppStore from '@/stores/app.ts'
 import CustomIcon from './custom-icon.tsx'
 import type { FC } from 'react'
@@ -13,6 +13,7 @@ const MenuComponent: FC<MenuProps> = props => {
   const { menuList } = props
   const { locale } = useAppStore()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const onMenuClick = (path: string) => {
     navigate(path)

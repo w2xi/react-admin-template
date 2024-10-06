@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Tag, Dropdown, theme as antTheme } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { css } from '@emotion/react'
 import { FormattedMessage } from 'react-intl'
 import useAppStore from '@/stores/app'
@@ -44,6 +44,7 @@ const initAffixTags = (menus: MenuList) => {
 
 function TabBar() {
   const navigate = useNavigate()
+  const location = useLocation()
   const menuList = useUserStore(state => state.menuList)
   const locale = useAppStore(state => state.locale)
   const { visitedRoutes, addVisitedRoute, setVisitedRoute } = useTabBarStore()
