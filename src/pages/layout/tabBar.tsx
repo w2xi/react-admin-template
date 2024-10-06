@@ -46,7 +46,7 @@ function TabBar() {
   const navigate = useNavigate()
   const location = useLocation()
   const menuList = useUserStore(state => state.menuList)
-  const { locale, theme } = useAppStore()
+  const { locale } = useAppStore()
   const { visitedRoutes, addVisitedRoute, setVisitedRoute } = useTabBarStore()
   const { token } = useToken()
 
