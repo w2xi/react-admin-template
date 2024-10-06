@@ -28,7 +28,7 @@ function App() {
       }}
     >
       <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/react-admin-template/' : '/'}>
           <Suspense fallback={null}>
             <Spin
               className="app-loading-wrapper"
