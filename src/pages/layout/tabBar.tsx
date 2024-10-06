@@ -46,7 +46,7 @@ function TabBar() {
   const navigate = useNavigate()
   const location = useLocation()
   const menuList = useUserStore(state => state.menuList)
-  const locale = useAppStore(state => state.locale)
+  const { locale, theme } = useAppStore()
   const { visitedRoutes, addVisitedRoute, setVisitedRoute } = useTabBarStore()
   const { token } = useToken()
 
@@ -133,7 +133,7 @@ function TabBar() {
         }}
         trigger={['click']}
       >
-        <SettingOutlined className="icon-setting" />
+        <SettingOutlined className="icon-setting" style={{ color: token.colorTextSecondary }} />
       </Dropdown>
     </div>
   )
