@@ -1,30 +1,53 @@
-# React + TypeScript + Vite
+English | [简体中文](README.zh-CN.md)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">React Admin Template</h1>
 
-Currently, two official plugins are available:
+## Introduction
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[react-admin-template](https://github.com/w2xi/react-admin-template) is a React-based + Ant-Design admin template.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: A JavaScript library for building user interfaces.
+- **Ant Design**: A design system for React applications.
+- **TypeScript**: A superset of JavaScript that adds static types.
+- **Vite**: A modern build tool that significantly improves development speed.
+- **Zustand**: A lightweight and fast state management solution.
+- **react-intl**: A internationalization library for React applications.
+- **recharts**: A powerful charting library for React.
+- **@emotion/react**: A powerful CSS-in-JS library for styling React apps.
+- **axios**: A Promise-based HTTP client for the browser and node.js.
+- **mockjs**: A library for generating mock data.
 
-- Configure the top-level `parserOptions` property like this:
+## Getting started
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+# Clone the repository
+git clone https://github.com/w2xi/react-admin-template.git
+
+# Navigate to the project directory
+cd react-admin-template
+
+# Install dependencies
+pnpm install
+
+# Start the development server
+pnpm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Open your browser and visit http://localhost:5173/ to view the admin template.
+
+## Build
+
+```bash
+# Build the project
+pnpm run build
+```
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
+
+## License
+
+[MIT](LICENSE)
