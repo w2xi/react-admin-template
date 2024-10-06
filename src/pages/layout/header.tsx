@@ -45,7 +45,7 @@ function HeaderComponent() {
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </span>
       <div className="actions">
-        <Tooltip title={theme === 'dark' ? 'light mode' : 'dark mode'}>
+        <Tooltip title={ 'Switch to ' + `${theme === 'dark' ? 'light' : 'dark'}` + ' theme' }>
           <span className="action-btn" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark' ? <SunOutlined /> : <MoonOutlined />}
           </span>
