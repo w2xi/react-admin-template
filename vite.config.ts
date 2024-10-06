@@ -4,7 +4,7 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV ? '/' : '/react-admin-template/',
+  base: process.env.NODE_ENV === 'production' ? '/react-admin-template/' : '/',
   resolve: {
     alias: {
       '@': '/src',
