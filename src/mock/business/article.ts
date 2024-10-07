@@ -1,5 +1,6 @@
 import Mock from 'mockjs'
 import response from '../response'
+import type { MockjsRequestOptions } from 'mockjs'
 import type { ArticleList } from '@/interface/business/article'
 
 const data: ArticleList = []
@@ -20,7 +21,7 @@ for (let i = 0; i < count; i++) {
   )
 }
 
-Mock.mock('/api/business/article/list', 'get', (config: any) => {
+Mock.mock('/api/business/article/list', 'get', (config: MockjsRequestOptions) => {
   const { page = 1, limit = 20 } = JSON.parse(config.body)
   const start = (page - 1) * limit
   const end = start + limit
@@ -30,7 +31,7 @@ Mock.mock('/api/business/article/list', 'get', (config: any) => {
   })
 })
 
-Mock.mock('/api/business/article/delete', 'delete', (config: any) => {
+Mock.mock('/api/business/article/delete', 'delete', (config: MockjsRequestOptions) => {
   const { id } = JSON.parse(config.body)
   const index = data.findIndex(item => item.id === id)
   if (index !== -1) {
@@ -39,7 +40,7 @@ Mock.mock('/api/business/article/delete', 'delete', (config: any) => {
   return response({})
 })
 
-Mock.mock('/api/business/article/edit', 'post', (config: any) => {
+Mock.mock('/api/business/article/edit', 'post', (config: MockjsRequestOptions) => {
   const { id, author, title, importance, status } = JSON.parse(config.body)
   const index = data.findIndex(item => item.id === id)
   if (index !== -1) {
