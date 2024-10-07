@@ -7,40 +7,10 @@ import { FormattedMessage } from 'react-intl'
 import useAppStore from '@/stores/app'
 import useTabBarStore from '@/stores/tabBar'
 import useUserStore from '@/stores/user'
-import type { MenuItem, MenuList } from '@/interface/layout/menu'
+import { findMenuByPath, initAffixTags } from '@/utils'
 import type { MenuProps } from 'antd'
 
 const { useToken } = antTheme
-
-const findMenuByPath = (menus: MenuList, path: string, locale: 'zh_CN' | 'en_US'): MenuItem | undefined => {
-  for (const menu of menus) {
-    if (menu.path === path) {
-      return menu
-    }
-    if (menu.children) {
-      const target = findMenuByPath(menu.children, path, locale)
-      if (target) {
-        return target
-      }
-    }
-  }
-}
-
-const initAffixTags = (menus: MenuList) => {
-  const affixTags: MenuItem[] = []
-  const findAffixTags = (menus: MenuList) => {
-    menus.forEach(menu => {
-      if (menu.affix) {
-        affixTags.push(menu)
-      }
-      if (menu.children) {
-        findAffixTags(menu.children)
-      }
-    })
-  }
-  findAffixTags(menus)
-  return affixTags
-}
 
 function TabBar() {
   const navigate = useNavigate()
@@ -63,11 +33,11 @@ function TabBar() {
 
   useEffect(() => {
     const path = location.pathname
-    const menu = findMenuByPath(menuList, path, locale)
+    const menu = findMenuByPath(menuList, path)
     if (menu) {
       addVisitedRoute(menu)
     }
-  }, [location.pathname, locale])
+  }, [location.pathname])
 
   const handleClick: MenuProps['onClick'] = ({ key }) => {
     const index = visitedRoutes.findIndex(route => route.path === location.pathname)
