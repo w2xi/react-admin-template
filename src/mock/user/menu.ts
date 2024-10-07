@@ -43,7 +43,7 @@ const menuList: MenuList = [
     ],
   },
   {
-    code: 'Business',
+    code: 'business',
     icon: 'business',
     label: {
       zh_CN: '业务',
