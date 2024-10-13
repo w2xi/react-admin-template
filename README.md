@@ -6,18 +6,15 @@ English | [简体中文](README.zh-CN.md)
 
 [react-admin-template](https://github.com/w2xi/react-admin-template) is a React-based + Ant-Design admin template.
 
-## Tech Stack
+## Features
 
-- **React**: A JavaScript library for building user interfaces.
-- **Ant Design**: A design system for React applications.
-- **TypeScript**: A superset of JavaScript that adds static types.
-- **Vite**: A modern build tool that significantly improves development speed.
-- **Zustand**: A lightweight and fast state management solution.
-- **react-intl**: A internationalization library for React applications.
-- **recharts**: A powerful charting library for React.
-- **@emotion/react**: A powerful CSS-in-JS library for styling React apps.
-- **axios**: A Promise-based HTTP client for the browser and node.js.
-- **mockjs**: A library for generating mock data.
+- **TypeScript**: Full TypeScript support
+- **Hooks**: Use React hooks to build reusable components
+- **Theming**: Dynamically switch between themes
+- **Route guard**: Pages are protected by authentication
+- **Internationalization**: Support for multiple languages
+- **State management**: State management with Zustand
+- **Mock**: Mock data for development
 
 ## Getting started
 
