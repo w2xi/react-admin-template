@@ -43,6 +43,7 @@ function TabBar() {
     const index = visitedRoutes.findIndex(route => route.path === location.pathname)
     const affixTags = initAffixTags(menuList)
     const currentRoute = visitedRoutes[index]
+
     switch (key) {
       case 'close': {
         if (!currentRoute.affix) {
@@ -51,7 +52,7 @@ function TabBar() {
         break
       }
       case 'close-others': {
-        setVisitedRoute(affixTags.concat(visitedRoutes[index]))
+        addVisitedRoute(affixTags.concat(currentRoute))
         break
       }
       case 'close-all': {
